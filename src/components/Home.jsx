@@ -1,8 +1,10 @@
-import React from 'react';
- import { blogs } from '../data/blogs';
- import BlogPreview from '../components/BlogPreview';
+import React, { useState } from 'react';
+import { blogs } from '../data/blogs';
+import BlogPreview from '../components/BlogPreview';
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <section className="bg-slate-100 py-16 px-4 flex justify-center items-center text-center">
@@ -16,15 +18,17 @@ export default function Home() {
             or simply enjoy engaging content on topics ranging from tech and lifestyle to self-growth and productivity, 
             there's always something valuable waiting for you here.
           </p>
-          <a
-            href="#"
+          <button
+            onClick={() => setIsOpen(!isOpen)}
             className="inline-block px-6 py-3 bg-slate-800 text-white font-semibold rounded-md transition-transform duration-300 ease-in-out hover:bg-slate-700 hover:scale-105"
           >
-            Explore More
-          </a>
+            {isOpen ? "Show Less" : "Explore More"}
+          </button>
         </div>
       </section>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-[1200px] mx-auto">
+
+      {/* First Blog Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-[1200px] mx-auto lg:mx-0">
         {blogs.map(blog => (
           <BlogPreview key={blog.id} blog={blog} />
         ))}
