@@ -28,7 +28,7 @@ export default function Home() {
       </section>
 
       {/* First Blog Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-[1200px] mx-auto lg:mx-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6  mx-0 lg:mx-10 justify-around">
         {blogs.map(blog => (
           <BlogPreview key={blog.id} blog={blog} />
         ))}
