@@ -18,12 +18,6 @@ export default function Home() {
             or simply enjoy engaging content on topics ranging from tech and lifestyle to self-growth and productivity, 
             there's always something valuable waiting for you here.
           </p>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="inline-block px-6 py-3 bg-slate-800 text-white font-semibold rounded-md transition-transform duration-300 ease-in-out hover:bg-slate-700 hover:scale-105"
-          >
-            {isOpen ? "Show Less" : "Explore More"}
-          </button>
         </div>
       </section>
 
