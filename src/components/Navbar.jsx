@@ -1,42 +1,35 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext"; // import context
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false); // mobile menu
   const [isLoginOpen, setIsLoginOpen] = useState(false); // login modal
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // login state
-  const modalRef = useRef(null);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const validUser = {
-    username: "admin",
-    password: "1234",
-  };
+  // 👇 bring auth values from context
+  const {
+    isLoggedIn,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    error,
+    login,
+    logout,
+  } = useAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === validUser.username && password === validUser.password) {
-      setIsLoggedIn(true);
-      setError("");
-      setIsLoginOpen(false); // close modal
-    } else {
-      setError("Invalid username or password ❌");
-    }
+    login(username, password); // use context login
+    setIsLoginOpen(false); // close modal on submit
   };
 
   const handleLogout = () => {
-    if(confirm("are you want to logout?")){
-      setIsLoggedIn(false);
-      setUsername("");
-      setPassword("");
+    if (confirm("Are you sure you want to logout?")) {
+      logout(); // use context logout
     }
   };
-
-
 
   return (
     <>
@@ -56,7 +49,7 @@ export default function Navbar() {
             <Link to="/about" className="hover:text-indigo-600">About</Link>
             <Link to="/contact" className="hover:text-indigo-600">Contact</Link>
 
-            {/* Login Button */}
+            {/* Login / Logout */}
             <button
               onClick={isLoggedIn ? handleLogout : () => setIsLoginOpen(true)}
               className="transition duration-300 ease-in-out hover:scale-110 px-5 py-2 text-indigo-600

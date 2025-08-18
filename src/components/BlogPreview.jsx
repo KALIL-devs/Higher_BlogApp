@@ -1,6 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext"; // import context
 
 const BlogPreview = ({ blog }) => {
+  const { isLoggedIn } = useAuth(); // get login state
+  const navigate = useNavigate();
+
+  const handleReadMore = () => {
+    if (isLoggedIn) {
+      navigate(`/blog/${blog.id}`);
+    } else {
+      alert("⚠️ Please login to read the full blog");
+      navigate("/"); // or open login modal, your choice
+    }
+  };
+
   return (
     <div className="rounded-lg my-4 p-4 transition-transform duration-300 hover:scale-105 bg-white shadow-md">
       <div className="w-full aspect-video overflow-hidden rounded-lg">
@@ -14,12 +27,12 @@ const BlogPreview = ({ blog }) => {
       <p className="text-sm text-gray-500 italic">{blog.date}</p>
       <p className="mt-2 text-gray-700">{blog.excerpt}</p>
 
-      <Link to={`/blog/${blog.id}`}>
-      <button 
-        className="mt-3 transition duration-300 ease-in-out hover:scale-110 px-5 py-2 text-indigo-600 rounded-lg border-2 border-indigo-600 bg-white hover:bg-indigo-600 hover:text-white">
+      <button
+        onClick={handleReadMore}
+        className="mt-3 transition duration-300 ease-in-out hover:scale-110 px-5 py-2 text-indigo-600 rounded-lg border-2 border-indigo-600 bg-white hover:bg-indigo-600 hover:text-white"
+      >
         Read More
       </button>
-      </Link>
     </div>
   );
 };

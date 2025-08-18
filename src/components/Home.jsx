@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { blogs } from '../data/blogs';
 import BlogPreview from '../components/BlogPreview';
+import Navbar from './Navbar';
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,7 @@ export default function Home() {
           <BlogPreview key={blog.id} blog={blog} />
         ))}
       </div>
+      
     </>
   );
 }
